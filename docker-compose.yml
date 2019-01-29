@@ -16,4 +16,4 @@ services :
       volumes : 
         - ./frontend/dist:/usr/local/apache2/htdocs/
       ports : 
-        - "${WEB_PORT}:${WEB_PORT}"
+        - "${WEB_PORT}:80"

@@ -11,9 +11,8 @@ import History from './history/History'
 
 const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));
 
-
 import style from '../css/App.styl';
-//test
+
 const App = () => {
   return (
     <Provider store={store} history={history}>
