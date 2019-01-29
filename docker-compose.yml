@@ -1,0 +1,19 @@
+version : '3'
+
+services : 
+
+    db : 
+      build : './couchdb'
+      restart: always
+      volumes:
+        - ./database:/opt/couchdb/data
+      ports:
+        - "${DB_PORT}:${DB_PORT}"
+
+    web : 
+      build : './httpd'
+      restart: always
+      volumes : 
+        - ./frontend/dist:/usr/local/apache2/htdocs/
+      ports : 
+        - "${WEB_PORT}:${WEB_PORT}"
