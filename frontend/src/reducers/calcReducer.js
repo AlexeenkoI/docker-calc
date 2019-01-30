@@ -6,6 +6,7 @@ const initialState = {
   operationType : '',
   rightOperand : '',
   isFloatEnable : false,
+  resetAfterChange : false,
   buttons : [
     {type : "control", controlType : "RESET", viewContent : "AC", cssProp : "grey"},
     {type : "control", controlType : "REVERSE", viewContent : "+/-", cssProp : "grey"},
@@ -35,9 +36,11 @@ export const calcReducer = (state = initialState, action) => {
       return {
         ...state,
         leftOperand : action.result.toString(),
-        operandPosition : 1,
+        operandPosition : action.operandPos,
         rightOperand : '',
-        operator : '',
+        operatorType : action.operation,
+        operator : action.sign,
+        resetAfterChange : true
       }
     case "SET_LEFT_OPERAND" : 
       let operandToJoin;
@@ -46,9 +49,17 @@ export const calcReducer = (state = initialState, action) => {
       }else{
         operandToJoin = state.leftOperand;
       }
-      return {
-        ...state,
-        leftOperand : [operandToJoin, action.operandValue].join(""),
+      if(state.resetAfterChange){
+        return {
+          ...state,
+          leftOperand : action.operandValue,
+          resetAfterChange : false
+        }
+      }else{
+        return {
+          ...state,
+          leftOperand : [operandToJoin, action.operandValue].join(""),
+        }
       }
     case "SET_RIGHT_OPERAND" : 
       return {

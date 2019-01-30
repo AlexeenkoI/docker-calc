@@ -56,15 +56,22 @@ export const findPercent = (firstOperand, secondOperand, operation) => {
     dispatch({
       type : "SET_RESULT",
       result,
+      resetAfterChange : true
     })
   }
 }
 
 
-export const executeOperation = (operation, firstOperand, secondOperand, isFloat) => {
+export const executeOperation = (operation, firstOperand, secondOperand, isFloat, controlType) => {
+
   return dispatch => {
-    let result = ""
+    let result = "";
     let sign = '';
+    let operandPos = 1;
+    console.log('current op');
+    console.log(operation);
+    console.log(controlType);
+
     if(isFloat){
       firstOperand = parseFloat(firstOperand);
       secondOperand = parseFloat(secondOperand);
@@ -77,32 +84,50 @@ export const executeOperation = (operation, firstOperand, secondOperand, isFloat
         case "SPLIT" : 
           result = firstOperand/secondOperand;
           sign = "/";
+          operandPos = 2;
           break;
         case "MULTIPLE" : 
           result = firstOperand * secondOperand;
-          sign = "*";
+          sign = "X";
+          operandPos = 2;
           break;
         case "MINUS" : 
           result = firstOperand - secondOperand;
           sign = "-";
+          operandPos = 2;
           break;
         case "PLUS" : 
           result  = firstOperand + secondOperand;
           sign = "+";
+          operandPos = 2;
           break;
-        case "RESULT" : 
+        case "RESULT" :
+          sign = '';
+          operation = '';
           break;
+        default : 
+          result = firstOperand;
+          sign = '';
+
       }
       const resultItem = `${firstOperand} ${sign} ${secondOperand} = ${result}`;
       dispatch(saveHistory(resultItem))
+      if(controlType === "RESULT"){
+        sign = '';
+        operation = '';
+        operandPos = 1;
+      }
     } catch (error) {
       result = error.message
     }
 
-
     dispatch({
       type : "SET_RESULT",
       result,
+      resetAfterChange : true,
+      sign,
+      operation,
+      operandPos
     })
 
   }

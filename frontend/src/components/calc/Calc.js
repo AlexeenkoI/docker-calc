@@ -21,14 +21,25 @@ export class Calc extends Component {
   }
 
   onOperandClick(operandValue){
-  const { operandPosition, setOperand, changeOperandPosition } = this.props;
-    setOperand(operandValue, operandPosition);
+  const { operandPosition, setOperand, changeOperandPosition , operator } = this.props;
+    console.log('current operator');
+    console.log(operator)
+    if(operator){ 
+      console.log('change pos')
+      //setOperand(operandValue, 2);
+      changeOperandPosition();
+      setOperand(operandValue, 2);
+    }else{
+      setOperand(operandValue, operandPosition);
+    }
   }
 
   onOperationClick(controlType, operatorString){
     const { operandPosition, setOperator, changeOperandPosition, reverseValue, operator, findPercent,
       toFloat, resetValues, leftOperand, rightOperand, isFloatEnable, operatorType, executeOperation } = this.props;
-
+      console.log('op handler');
+      console.log(controlType);
+      console.log(operatorString)
     switch(controlType){
       case "RESET" : 
         resetValues();
@@ -40,15 +51,24 @@ export class Calc extends Component {
         toFloat(operandPosition);
         return;
       case "PERCENT" :
-        findPercent(leftOperand,  rightOperand, operator)
+        findPercent(leftOperand, rightOperand, operator)
         return;
-      default : 
-        if(operandPosition === 2 && rightOperand){
-          executeOperation(operatorType, leftOperand, rightOperand, isFloatEnable)
-          return
-        }
+      case "RESULT" : 
+        console.log('result case')
         setOperator(controlType, operatorString);
-        changeOperandPosition();
+        executeOperation(operatorType, leftOperand, rightOperand, isFloatEnable, controlType)
+        return
+      case "PLUS" :
+      case "MINUS" :
+      case "MULTIPLE" : 
+      case "SPLIT" : 
+        setOperator(controlType, operatorString);
+        if(operandPosition === 2 && rightOperand){
+          executeOperation(operatorType, leftOperand, rightOperand, isFloatEnable, controlType)
+        }
+        return
+        //setOperator(controlType, operatorString);
+        //changeOperandPosition();
     }
 
   }
@@ -84,7 +104,8 @@ const mapStateToProps = (state) => ({calcData}) => {
     operatorType : calcData.operatorType,
     operandPosition : calcData.operandPosition,
     isFloatEnable  : calcData.isFloatEnable,
-    buttons : calcData.buttons
+    buttons : calcData.buttons,
+    resetAfterChange : calcData.resetAfterChange
   }
 }
 
@@ -95,7 +116,7 @@ const mapDispatchToProps = dispatch => ({
   reverseValue : (operandPos) => dispatch(reverseValue(operandPos)),
   toFloat : (operandPos, value) => dispatch(toFloat(operandPos, value)),
   resetValues : () => dispatch(resetValues()),
-  executeOperation : (operation, firstOperand, secondOperand,isFloat) => dispatch(executeOperation(operation, firstOperand, secondOperand,isFloat)),
+  executeOperation : (operation, firstOperand, secondOperand,isFloat, controlType) => dispatch(executeOperation(operation, firstOperand, secondOperand,isFloat, controlType)),
   findPercent : (firstOperand, secondOperand, operation) => dispatch(findPercent(firstOperand, secondOperand, operation))
 })
 
