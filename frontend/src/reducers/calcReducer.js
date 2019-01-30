@@ -43,7 +43,6 @@ export const calcReducer = (state = initialState, action) => {
         resetAfterChange : true
       }
     case "SET_LEFT_OPERAND" : 
-      console.log(state.leftOperand.length)
       if(state.leftOperand.length > 10) return state;
       let operandToJoin;
       if(state.leftOperand === 0){

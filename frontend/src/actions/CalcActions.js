@@ -107,8 +107,10 @@ export const executeOperation = (operation, firstOperand, secondOperand, isFloat
           sign = '';
 
       }
-      const resultItem = `${firstOperand} ${sign} ${secondOperand} = ${result}`;
-      dispatch(saveHistory(resultItem))
+      if(secondOperand){
+        const resultItem = `${firstOperand} ${sign} ${secondOperand} = ${result}`;
+        dispatch(saveHistory(resultItem))
+      }
       switch(controlType){
         case "RESULT" : 
           sign = '';
