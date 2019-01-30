@@ -41,7 +41,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server ",
-    "start": "webpack"
+    "build": "webpack"
   },
   "author": "Alex",
   "license": "ISC"

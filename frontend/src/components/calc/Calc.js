@@ -22,11 +22,8 @@ export class Calc extends Component {
 
   onOperandClick(operandValue){
   const { operandPosition, setOperand, changeOperandPosition , operator } = this.props;
-    console.log('current operator');
-    console.log(operator)
+
     if(operator){ 
-      console.log('change pos')
-      //setOperand(operandValue, 2);
       changeOperandPosition();
       setOperand(operandValue, 2);
     }else{
@@ -51,7 +48,6 @@ export class Calc extends Component {
         findPercent(leftOperand, rightOperand, operator)
         return;
       case "RESULT" : 
-        console.log('result case')
         setOperator(controlType, operatorString);
         executeOperation(operatorType, leftOperand, rightOperand, isFloatEnable, controlType)
         return
@@ -65,8 +61,6 @@ export class Calc extends Component {
           changeOperandPosition();
         }
         return
-        //setOperator(controlType, operatorString);
-        //changeOperandPosition();
     }
 
   }

@@ -68,9 +68,6 @@ export const executeOperation = (operation, firstOperand, secondOperand, isFloat
     let result = "";
     let sign = '';
     let operandPos = 1;
-    console.log('execute operation');
-    console.log(operation);
-    console.log(controlType);
 
     if(isFloat){
       firstOperand = parseFloat(firstOperand);

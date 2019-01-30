@@ -43,6 +43,8 @@ export const calcReducer = (state = initialState, action) => {
         resetAfterChange : true
       }
     case "SET_LEFT_OPERAND" : 
+      console.log(state.leftOperand.length)
+      if(state.leftOperand.length > 10) return state;
       let operandToJoin;
       if(state.leftOperand === 0){
         operandToJoin = '';
@@ -62,6 +64,7 @@ export const calcReducer = (state = initialState, action) => {
         }
       }
     case "SET_RIGHT_OPERAND" : 
+      if(state.rightOperand.length > 10) return state;
       return {
         ...state,
         rightOperand : [state.rightOperand, action.operandValue].join(""),
