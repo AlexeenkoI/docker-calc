@@ -10,4 +10,4 @@ couchdb по адресу - http://127.0.0.1:5984/
 адрес - http://127.0.0.1:8080/ 
 
 запуск дев сервера ./frontend/npm run dev
-сборка бандла ./frontend/npm run start
+сборка бандла ./frontend/npm run build
