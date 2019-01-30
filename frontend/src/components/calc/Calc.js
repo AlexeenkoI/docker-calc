@@ -37,9 +37,6 @@ export class Calc extends Component {
   onOperationClick(controlType, operatorString){
     const { operandPosition, setOperator, changeOperandPosition, reverseValue, operator, findPercent,
       toFloat, resetValues, leftOperand, rightOperand, isFloatEnable, operatorType, executeOperation } = this.props;
-      console.log('op handler');
-      console.log(controlType);
-      console.log(operatorString)
     switch(controlType){
       case "RESET" : 
         resetValues();
@@ -65,6 +62,7 @@ export class Calc extends Component {
         setOperator(controlType, operatorString);
         if(operandPosition === 2 && rightOperand){
           executeOperation(operatorType, leftOperand, rightOperand, isFloatEnable, controlType)
+          changeOperandPosition();
         }
         return
         //setOperator(controlType, operatorString);

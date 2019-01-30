@@ -68,7 +68,7 @@ export const executeOperation = (operation, firstOperand, secondOperand, isFloat
     let result = "";
     let sign = '';
     let operandPos = 1;
-    console.log('current op');
+    console.log('execute operation');
     console.log(operation);
     console.log(controlType);
 
@@ -112,10 +112,32 @@ export const executeOperation = (operation, firstOperand, secondOperand, isFloat
       }
       const resultItem = `${firstOperand} ${sign} ${secondOperand} = ${result}`;
       dispatch(saveHistory(resultItem))
-      if(controlType === "RESULT"){
-        sign = '';
-        operation = '';
-        operandPos = 1;
+      switch(controlType){
+        case "RESULT" : 
+          sign = '';
+          operation = '';
+          operandPos = 1;
+          break;
+        case "PLUS":
+          sign = "+";
+          operation = "PLUS";
+          operandPos = 2;
+          break;
+        case "MINUS":
+          sign = "-";
+          operation = "MINUS";
+          operandPos = 2;
+          break;
+        case "MULTIPLE":
+          sign = "X";
+          operation = "MULTIPLE";
+          operandPos = 2;
+          break;
+        case "SPLIT" :
+          sign = "/";
+          operation = "SPLIT";
+          operandPos = 2;
+          break;
       }
     } catch (error) {
       result = error.message
